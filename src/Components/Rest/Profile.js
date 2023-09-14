@@ -52,7 +52,7 @@ const Profile = () => {
       };
       uploadImg();
     }
-  }, [user.avatarPath, img]);
+  }, [user, img]);
 
   const deleteImage = async () => {
     try {
