@@ -21,10 +21,10 @@ const Hero = () => {
         <Col>
           <Row>
             <Col>
-              <img src={chatOne} alt="chat hero image" width={300} />
+              <img src={chatOne} alt="chat hero" width={300} />
             </Col>
             <Col>
-              <img src={chatTwo} alt="chat hero image" width={300} />
+              <img src={chatTwo} alt="chat hero" width={300} />
             </Col>
           </Row>
         </Col>

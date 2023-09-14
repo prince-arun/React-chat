@@ -1,5 +1,4 @@
 import React from "react";
-import Attachment from "../svg/Attachment";
 import Button from "react-bootstrap/Button";
 
 const MessageForm = ({ handleSubmit, text, setText, setImg }) => {

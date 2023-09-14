@@ -19,11 +19,7 @@ const Ad = () => {
         <Col>
           <Card>
             <Card.Body>
-              <img
-                src={privacy}
-                alt="picture about privacy in signal"
-                width={500}
-              />
+              <img src={privacy} alt=" about privacy in signal" width={500} />
               <div className="box-center">
                 <h2>Make Privacy Sticks</h2>
                 <p>
@@ -38,11 +34,7 @@ const Ad = () => {
         <Col>
           <Card>
             <Card.Body>
-              <img
-                src={group}
-                alt="picture about group in signal"
-                width={500}
-              />
+              <img src={group} alt=" about group in signal" width={500} />
               <div className="box-center">
                 <h2>Get Together with Groups</h2>
                 <p className="pb-4">
