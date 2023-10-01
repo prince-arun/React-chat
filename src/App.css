@@ -30,6 +30,7 @@
 /* ----------------------------Ad---------------- */
 .ad {
   background-color: rgb(246, 246, 246);
+  z-index: -100;
 }
 
 .box-center {
@@ -367,4 +368,9 @@ section h3 {
 }
 .sm_screen {
   display: none;
+}
+
+.s-icon {
+  font-size: 25px;
+  margin: 0 10px;
 }
