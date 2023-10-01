@@ -4,10 +4,12 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import privacy from "./assets/privacy-img-1.png";
 import group from "./assets/group-img-1.png";
+import Button from "react-bootstrap/Button";
+import { FcUp } from "react-icons/fc";
 
 const Ad = () => {
   return (
-    <div className="ad">
+    <div className="ad z-index-1">
       <div className="box-center mt-5 mb-5">
         <h1>Why use Signal?</h1>
         <p className="mt-2 ">
@@ -15,7 +17,7 @@ const Ad = () => {
           messenger
         </p>
       </div>
-      <Row className="ms-3 me-3">
+      <Row className="ms-3 me-3 ">
         <Col>
           <Card>
             <Card.Body>
@@ -46,6 +48,13 @@ const Ad = () => {
           </Card>
         </Col>
       </Row>
+      <div className="text-center m-3 ">
+        <a href="#top">
+          <Button variant="outline-primary" className="px-5 py-2">
+            To SignUp <FcUp />
+          </Button>
+        </a>
+      </div>
     </div>
   );
 };
