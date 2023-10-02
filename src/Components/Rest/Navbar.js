@@ -71,18 +71,18 @@ const Navbaar = () => {
         );
         try {
           if (user.avatarPath) {
-            await deleteDoc(doc(db, "users", auth.currentUser.uid), {
-              avatarPath: "",
-            });
-            await deleteDoc(doc(db, "users", auth.currentUser.uid), {
-              avatar: "",
-            });
-            await deleteDoc(doc(db, "users", auth.currentUser.uid), {
-              updatedAvatar: serverTimestamp(),
-            });
-            await deleteDoc(doc(db, "users", auth.currentUser.uid), {
-              updatedAt: serverTimestamp(),
-            });
+            // await deleteDoc(doc(db, "users", auth.currentUser.uid), {
+            //   avatarPath: "",
+            // });
+            // await deleteDoc(doc(db, "users", auth.currentUser.uid), {
+            //   avatar: "",
+            // });
+            // await deleteDoc(doc(db, "users", auth.currentUser.uid), {
+            //   updatedAvatar: serverTimestamp(),
+            // });
+            // await deleteDoc(doc(db, "users", auth.currentUser.uid), {
+            //   updatedAt: serverTimestamp(),
+            // });
             await deleteObject(ref(storage, user.avatarPath));
           }
           const snap = await uploadBytes(imgRef, img);
