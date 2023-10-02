@@ -18,12 +18,25 @@ import { TbArrowBackUpDouble } from "react-icons/tb";
 const Profile = () => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
+  // ----------------------------
+  const [isEditing, setIsEditing] = useState(false); // Add a state to track editing mode
+  const [editedUser, setEditedUser] = useState({
+    name: "",
+    email: "",
+    age: "",
+    gender: "",
+    country: "",
+  });
+  // ----------------------------
   const navigate = useNavigate("");
 
   useEffect(() => {
     getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
       if (docSnap.exists) {
         setUser(docSnap.data());
+        // --------------
+        setEditedUser(docSnap.data());
+        // --------------
       }
     });
 
@@ -54,6 +67,18 @@ const Profile = () => {
     }
   }, [user, img]);
 
+  // ------------------------
+  const saveChanges = async () => {
+    try {
+      // Update Firestore with the edited user data
+      await updateDoc(doc(db, "users", auth.currentUser.uid), editedUser);
+      setIsEditing(false); // Exit editing mode
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+  // ------------------------
+
   const deleteImage = async () => {
     try {
       const confirm = window.confirm("Delete avatar?");
@@ -70,76 +95,6 @@ const Profile = () => {
       console.log(err.message);
     }
   };
-
-  // ------------------------------------
-  // const deleteAccount = async () => {
-  //   try {
-  //     const confirm = window.confirm(
-  //       "Are you sure you want to delete your account?"
-  //     );
-  //     if (confirm) {
-  //       // Delete user's avatar from Firebase Storage
-  //       if (user.avatarPath) {
-  //         await deleteObject(ref(storage, user.avatarPath));
-  //       }
-
-  //       // Delete user's data from Firestore
-  //       await deleteDoc(doc(db, "users", auth.currentUser.uid));
-
-  //       // Delete the user
-  //       const currentUser = auth.currentUser;
-  //       if (currentUser) {
-  //         await currentUser.delete();
-  //       }
-
-  //       navigate("/");
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-  // const deleteAccount = async () => {
-  //   try {
-  //     const confirm = window.confirm(
-  //       "Are you sure you want to delete your account?"
-  //     );
-  //     if (confirm) {
-  //       const user = auth.currentUser;
-
-  //       if (user) {
-  //         const password = prompt(
-  //           "Please enter your password to confirm account deletion:"
-  //         );
-  //         if (password === null) {
-  //           return; // User cancelled password prompt
-  //         }
-
-  //         const credential = auth.EmailAuthProvider.credential(
-  //           user.email,
-  //           password
-  //         );
-
-  //         // Reauthenticate the user with their password
-  //         await user.reauthenticateWithCredential(credential);
-
-  //         // Delete user's avatar from Firebase Storage
-  //         if (user.avatarPath) {
-  //           await deleteObject(ref(storage, user.avatarPath));
-  //         }
-
-  //         // Delete user's data from Firestore
-  //         await deleteDoc(doc(db, "users", auth.currentUser.uid));
-
-  //         // Delete the user's account
-  //         await user.delete();
-
-  //         navigate("/");
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
 
   const deleteAccount = async () => {
     try {
@@ -203,6 +158,50 @@ const Profile = () => {
 
   //----------------------------------------
   return user ? (
+    // <div>
+    //   <div className="back" onClick={gBack}>
+    //     <h3>
+    //       {" "}
+    //       <TbArrowBackUpDouble />
+    //       Back...
+    //     </h3>
+    //   </div>
+
+    //   <div className="prof-con">
+    //     <div className="profile_container">
+    //       <div className="img_container">
+    //         <img src={user.avatar || Img} alt="avatar" />
+    //         <div className="overlay">
+    //           <div>
+    //             <label htmlFor="photo">
+    //               <Camera />
+    //             </label>
+    //             {user.avatar ? <Delete deleteImage={deleteImage} /> : null}
+    //             <input
+    //               type="file"
+    //               accept="image/*"
+    //               style={{ display: "none" }}
+    //               id="photo"
+    //               onChange={(e) => setImg(e.target.files[0])}
+    //             />
+    //           </div>
+    //         </div>
+    //       </div>
+    //       <div className="text_container">
+    //         <h3 className="p-cen">{user.name}</h3>
+    //         <p>{user.email}</p>
+    //         <hr />
+    //         <small>Joined on: {user.createdAt.toDate().toDateString()}</small>
+    //       </div>
+
+    //       <Button onClick={deleteAccount} variant="outline-danger">
+    //         Delete Account
+    //       </Button>
+    //     </div>
+    //   </div>
+    // </div>
+
+    // -------------------------------------------------------
     <div>
       <div className="back" onClick={gBack}>
         <h3>
@@ -233,11 +232,64 @@ const Profile = () => {
             </div>
           </div>
           <div className="text_container">
-            <h3 className="p-cen">{user.name}</h3>
-            <p>{user.email}</p>
+            {/* Editable input fields */}
+            {isEditing ? (
+              <>
+                <input
+                  type="text"
+                  value={user.name}
+                  onChange={(e) => setUser({ user, name: e.target.value })}
+                />
+                <input
+                  type="email"
+                  value={user.email}
+                  onChange={(e) => setUser({ user, email: e.target.value })}
+                />
+                <input
+                  type="number"
+                  value={user.age}
+                  onChange={(e) => setUser({ user, age: e.target.value })}
+                />
+                <input
+                  type="text"
+                  value={user.gender}
+                  onChange={(e) => setUser({ user, gender: e.target.value })}
+                />
+                <input
+                  type="text"
+                  value={user.country}
+                  onChange={(e) => setUser({ user, country: e.target.value })}
+                />
+              </>
+            ) : (
+              <>
+                <h3 className="p-cen">{user.name}</h3>
+                <p>{user.email}</p>
+                <p>Age: {user.age}</p>
+                <p>Gender: {user.gender}</p>
+                <p>Country: {user.country}</p>
+              </>
+            )}
             <hr />
-            <small>Joined on: {user.createdAt.toDate().toDateString()}</small>
+            <small>
+              Joined on:{" "}
+              {user.createdAt ? user.createdAt.toDate().toDateString() : "N/A"}
+            </small>
           </div>
+
+          {/* Save Changes and Edit button */}
+          {isEditing ? (
+            <Button onClick={saveChanges} variant="outline-success">
+              Save Changes
+            </Button>
+          ) : (
+            <Button
+              onClick={() => setIsEditing(true)}
+              variant="outline-primary"
+            >
+              Edit Profile
+            </Button>
+          )}
 
           <Button onClick={deleteAccount} variant="outline-danger">
             Delete Account
@@ -245,7 +297,8 @@ const Profile = () => {
         </div>
       </div>
     </div>
-  ) : null;
+  ) : // -------------------------------------------------------
+  null;
 };
 
 export default Profile;

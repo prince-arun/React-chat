@@ -6,7 +6,6 @@ import Home from "./Components/Home/Home";
 import SignIn from "./Components/Home/SignIn";
 import Homepage from "./Components/Rest/Homepage";
 import AuthProvider from "./context/auth";
-import Profile from "./Components/Rest/Profile";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/home" element={<Homepage />} />
-            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
