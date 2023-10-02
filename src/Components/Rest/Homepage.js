@@ -18,7 +18,7 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import User from "../Rest/User";
 import MessageForm from "../Rest/MessageForm";
 import Message from "../Rest/Message";
-import Navbar from "./Navbar";
+import Navbaar from "./Navbar";
 
 const Homepage = () => {
   //-----------------------------------
@@ -28,6 +28,8 @@ const Homepage = () => {
   const [img, setImg] = useState("");
   const [msgs, setMsgs] = useState([]);
   console.log(auth);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // const user1 = auth.currentUser.uid;
   const user1 = auth.currentUser ? auth.currentUser.uid : null;
@@ -82,6 +84,7 @@ const Homepage = () => {
 
     let url;
     if (img) {
+      setIsLoading(true); // Set loading state to true while uploading
       const imgRef = ref(
         storage,
         `images/${new Date().getTime()} - ${img.name}`
@@ -89,6 +92,7 @@ const Homepage = () => {
       const snap = await uploadBytes(imgRef, img);
       const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
       url = dlUrl;
+      setIsLoading(false); // Set loading state to false when upload is complete
     }
 
     await addDoc(collection(db, "messages", id, "chat"), {
@@ -115,7 +119,7 @@ const Homepage = () => {
   //-----------------------------------
   return (
     <>
-      <Navbar />
+      <Navbaar />
       <div className="home_wr">
         <div className="home_container">
           <div className="users_container">
@@ -148,6 +152,7 @@ const Homepage = () => {
                     text={text}
                     setText={setText}
                     setImg={setImg}
+                    isLoading={isLoading}
                   />
                 </div>
               </>

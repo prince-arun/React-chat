@@ -221,7 +221,7 @@ section h3 {
 .messages_container {
   position: relative;
   width: 100%;
-  background-color: gray;
+  background-color: rgb(49, 49, 49);
 }
 .msg_box {
   border: 2px solid black;
@@ -349,16 +349,19 @@ section h3 {
 .selected_user {
   background-color: rgb(237, 241, 248);
 }
-/* .truncate {
+.truncate {
   font-size: 14px;
+  color: rgb(255, 166, 0);
   white-space: nowrap;
   width: 90%;
+
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .truncate strong {
   margin-right: 10px;
-} */
+  margin-top: 10px;
+}
 .unread {
   margin-left: 10px;
   background: var(--b-2);
@@ -373,4 +376,46 @@ section h3 {
 .s-icon {
   font-size: 25px;
   margin: 0 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .home_container {
+    grid-template-columns: 2fr 3fr;
+  }
+  .message_form {
+    left: 3%;
+    right: 0;
+    bottom: 5px;
+  }
+  .message_wrapper p {
+    max-width: 75%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .home_container {
+    grid-template-columns: 1fr 5fr;
+  }
+  .user_wrapper {
+    display: none;
+  }
+  .sm_container {
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .sm_screen {
+    display: inline-block;
+  }
+  .message_form input {
+    width: 50vw;
+    margin: 0px 10px;
+  }
+  .message_form .btn {
+    margin: 0px;
+  }
+
+  .message_wrapper p {
+    max-width: 100%;
+  }
 }

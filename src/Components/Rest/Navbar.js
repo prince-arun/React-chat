@@ -5,7 +5,6 @@ import { signOut } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
 import Img from "../../image1.jpg";
 
-// import { AuthContext } from "../../context/auth";
 import {
   ref,
   getDownloadURL,
@@ -27,8 +26,10 @@ import {
 import Image from "react-bootstrap/Image";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
 
-const Navbar = () => {
+const Navbaar = () => {
   const navigate = useNavigate();
   // ============================================================================================
   const [img, setImg] = useState(null);
@@ -136,23 +137,6 @@ const Navbar = () => {
     }
   };
 
-  // const deleteImage = async () => {
-  //   try {
-  //     const confirm = window.confirm("Delete avatar?");
-  //     if (confirm) {
-  //       await deleteObject(ref(storage, user.avatarPath));
-
-  //       await updateDoc(doc(db, "users", auth.currentUser.uid), {
-  //         avatar: "",
-  //         avatarPath: "",
-  //       });
-  //       navigate("/home");
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-
   const deleteImage = async () => {
     try {
       const confirm = window.confirm("Delete avatar?");
@@ -220,8 +204,6 @@ const Navbar = () => {
   }
   // =============================================================================================
 
-  // const { user } = useContext(AuthContext);
-
   const handleSignout = async () => {
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       isOnline: false,
@@ -231,137 +213,166 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
-      <h3>
-        <Link to="/home">
-          {" "}
-          <img src={logo} alt="home logo" width={200} />
-        </Link>
-      </h3>
-
-      <div>
-        {/* <Link to="/profile">
-          {" "}
-          <Button variant="warning" className="px-3 py-2">
-            Profile
-          </Button>
-        </Link> */}
-        {/* ======================================================== */}
-        <Image
-          className="ms-5 shadow bg-white"
-          onClick={handleShow}
-          src={user.avatar || Img}
-          roundedCircle
-          width={70}
-          height={70}
-          style={{ cursor: "pointer" }}
-        />
-
-        <Offcanvas show={show} onHide={handleClose} placement="end">
-          <Offcanvas.Header
-            closeButton
-            className="bg-dark text-warning text-center"
-          >
-            <Offcanvas.Title>Edit Profile</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body className="bg-dark">
-            <div className="text-center">
-              <img
-                src={user.avatar || Img}
-                alt="Profile"
-                className="mb-3"
-                width={100}
-                height={100}
-              />
-            </div>
-            <Form>
-              <Form.Group className="mb-3 text-white">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={editedUser.name}
-                  onChange={(e) =>
-                    setEditedUser({ ...editedUser, name: e.target.value })
-                  }
+    <div>
+      <Navbar className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#home">
+            <h3>
+              <Link to="/home">
+                {" "}
+                <img src={logo} alt="home logo" width={200} />
+              </Link>
+            </h3>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              {/* **************************** */}
+              <div>
+                {/* ======================================================== */}
+                <Image
+                  className="ms-5 me-3 shadow bg-white"
+                  onClick={handleShow}
+                  src={user.avatar || Img}
+                  roundedCircle
+                  width={60}
+                  height={60}
+                  style={{ cursor: "pointer" }}
                 />
-              </Form.Group>
 
-              <Form.Group className="mb-3 text-white">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={editedUser.email}
-                  onChange={(e) =>
-                    setEditedUser({ ...editedUser, email: e.target.value })
-                  }
-                />
-              </Form.Group>
+                <Offcanvas show={show} onHide={handleClose} placement="end">
+                  <Offcanvas.Header
+                    closeButton
+                    className="bg-dark text-warning text-center"
+                  >
+                    <Offcanvas.Title>Edit Profile</Offcanvas.Title>
+                  </Offcanvas.Header>
+                  <Offcanvas.Body className="bg-dark">
+                    <div className="text-center">
+                      <img
+                        src={user.avatar || Img}
+                        alt="Profile"
+                        className="mb-3"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <Form>
+                      <Form.Group className="mb-3 text-white">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={editedUser.name}
+                          onChange={(e) =>
+                            setEditedUser({
+                              ...editedUser,
+                              name: e.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
 
-              <Form.Group className="mb-3 text-white">
-                <Form.Label>Age</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={editedUser.age}
-                  onChange={(e) =>
-                    setEditedUser({ ...editedUser, age: e.target.value })
-                  }
-                />
-              </Form.Group>
+                      <Form.Group className="mb-3 text-white">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                          type="email"
+                          value={editedUser.email}
+                          onChange={(e) =>
+                            setEditedUser({
+                              ...editedUser,
+                              email: e.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
 
-              <Form.Group className="mb-3 text-white">
-                <Form.Label>Gender</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={editedUser.gender}
-                  onChange={(e) =>
-                    setEditedUser({ ...editedUser, gender: e.target.value })
-                  }
-                />
-              </Form.Group>
+                      <Form.Group className="mb-3 text-white">
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control
+                          type="number"
+                          value={editedUser.age}
+                          onChange={(e) =>
+                            setEditedUser({
+                              ...editedUser,
+                              age: e.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
 
-              <Form.Group className="mb-3 text-white">
-                <Form.Label>Country</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={editedUser.country}
-                  onChange={(e) =>
-                    setEditedUser({ ...editedUser, country: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group className="mb-3 text-white">
-                <Form.Label>Profile Picture</Form.Label>
-                <Form.Control
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setImg(e.target.files[0])} // Updated to set img state
-                />
-              </Form.Group>
+                      <Form.Group className="mb-3 text-white">
+                        <Form.Label>Gender</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={editedUser.gender}
+                          onChange={(e) =>
+                            setEditedUser({
+                              ...editedUser,
+                              gender: e.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
 
-              {user.avatar && (
-                <Button variant="danger" onClick={deleteImage} className="me-2">
-                  Delete Image
+                      <Form.Group className="mb-3 text-white">
+                        <Form.Label>Country</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={editedUser.country}
+                          onChange={(e) =>
+                            setEditedUser({
+                              ...editedUser,
+                              country: e.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3 text-white">
+                        <Form.Label>Profile Picture</Form.Label>
+                        <Form.Control
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setImg(e.target.files[0])} // Updated to set img state
+                        />
+                      </Form.Group>
+
+                      {user.avatar && (
+                        <Button
+                          variant="danger"
+                          onClick={deleteImage}
+                          className="me-2"
+                        >
+                          Delete Image
+                        </Button>
+                      )}
+
+                      <Button variant="success" onClick={saveChanges}>
+                        Save
+                      </Button>
+                      <Button
+                        variant="danger"
+                        onClick={deleteAccount}
+                        className="ms-3"
+                      >
+                        Delete Account
+                      </Button>
+                    </Form>
+                  </Offcanvas.Body>
+                </Offcanvas>
+                {/* ======================================================== */}
+
+                <Button variant="danger" onClick={handleSignout}>
+                  {" "}
+                  Logout
                 </Button>
-              )}
-
-              <Button variant="success" onClick={saveChanges}>
-                Save
-              </Button>
-              <Button variant="danger" onClick={deleteAccount} className="ms-3">
-                Delete Account
-              </Button>
-            </Form>
-          </Offcanvas.Body>
-        </Offcanvas>
-        {/* ======================================================== */}
-
-        <Button variant="danger" onClick={handleSignout}>
-          {" "}
-          Logout
-        </Button>
-      </div>
-    </nav>
+              </div>
+              {/* **************************** */}
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 };
 
-export default Navbar;
+export default Navbaar;

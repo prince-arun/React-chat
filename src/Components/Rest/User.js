@@ -33,12 +33,19 @@ const User = ({ user1, user, selectUser, chat }) => {
             className={`user_status ${user.isOnline ? "online" : "offline"}`}
           ></div>
         </div>
-        {/* {data && (
+        {data && (
           <p className="truncate">
-            <strong>{data.from === user1 ? "Me:" : null}</strong>
+            <strong>
+              {data.from === user1 ? (
+                <span style={{ color: "blue" }}>Me:</span>
+              ) : (
+                <span style={{ color: "green" }}>Received:</span>
+              )}
+            </strong>
+
             {data.text}
           </p>
-        )} */}
+        )}
       </div>
       <div
         onClick={() => selectUser(user)}
