@@ -88,6 +88,9 @@ const Navbaar = () => {
           const snap = await uploadBytes(imgRef, img);
           const url = await getDownloadURL(ref(storage, snap.ref.fullPath));
 
+          // Update the user's avatar URL in the state
+          setUser({ ...user, avatar: url });
+
           await updateDoc(doc(db, "users", auth.currentUser.uid), {
             avatar: url,
             avatarPath: snap.ref.fullPath,
