@@ -42,6 +42,7 @@ const SignIn = () => {
         error: null,
         loading: false,
       });
+      alert("User LoggedIn Successfully");
       navigate("/home");
     } catch (err) {
       setData({ ...data, error: err.message, loading: false });
@@ -58,39 +59,6 @@ const SignIn = () => {
               <h2>Login</h2>
             </div>
             <div className="mx-5">
-              {/* <Form onSubmit={handleSubmit}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Email </Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="name@example.com"
-                    autoFocus
-                    value={email}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="name@example.com"
-                    autoFocus
-                    value={password}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {error ? <p className="error">{error}</p> : null}
-
-                <div className="text-center ">
-                  <Button className="  btn-submit-sign">Sign In</Button>
-                </div>
-              </Form> */}
               {/* ----------------------------- */}
               <form className="form" onSubmit={handleSubmit}>
                 <div className="input_container">

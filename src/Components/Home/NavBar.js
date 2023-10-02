@@ -45,9 +45,6 @@ const NavBar = () => {
     loading,
   } = data;
 
-  // const handleChange = (e) => {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // };
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
@@ -96,6 +93,7 @@ const NavBar = () => {
         error: null,
         loading: false,
       });
+      alert("Account Registered Successfully");
       navigate("/signIn");
     } catch (err) {
       setData({ ...data, error: err.message, loading: false });

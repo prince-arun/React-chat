@@ -93,7 +93,7 @@ const Navbaar = () => {
             avatarPath: snap.ref.fullPath,
             updatedAvatar: serverTimestamp(),
           });
-
+          alert("image updated successfully");
           setImg(null); // Clear the img state
         } catch (err) {
           console.log(err.message);
@@ -132,6 +132,7 @@ const Navbaar = () => {
       await updateEmail(user, editedUser.email);
       // Exit editing mode
       setShow(false);
+      alert("Details Updated successfully");
     } catch (error) {
       console.error("Error saving changes: ", error);
     }
@@ -148,6 +149,7 @@ const Navbaar = () => {
           avatarPath: "",
           updatedAvatar: serverTimestamp(),
         });
+        alert("profile image Deleted");
         navigate("/home");
       }
     } catch (err) {
@@ -189,7 +191,7 @@ const Navbaar = () => {
 
           // Sign out the user before navigating
           await auth.signOut();
-
+          alert("account Deleted successfully");
           // Navigate to the home page
           navigate("/");
         }
@@ -209,6 +211,7 @@ const Navbaar = () => {
       isOnline: false,
     });
     await signOut(auth);
+    alert("Account signed Out!");
     navigate("/signIn");
   };
 
