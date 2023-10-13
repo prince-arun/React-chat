@@ -124,6 +124,9 @@ const NavBar = () => {
               <Modal show={show} onHide={handleClose} className="mx-4">
                 <div className="text-center mt-3">
                   <h2>Register</h2>
+                  <p>
+                    <small>" Test user login below "</small>
+                  </p>
                 </div>
                 <Modal.Body className="mx-5">
                   {/* ------------------------------------- */}

@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { updateDoc, doc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 const SignIn = () => {
   //---------------------------------------
@@ -49,6 +51,19 @@ const SignIn = () => {
     }
   };
 
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">Test Credentials</Popover.Header>
+      <Popover.Body>
+        <p>
+          <strong>EMAIL : </strong>steve@gmail.com
+        </p>
+        <p>
+          <strong>PASSWORD : </strong>Steve@1234
+        </p>
+      </Popover.Body>
+    </Popover>
+  );
   //---------------------------------------------------------
   return (
     <div className="signIn d-flex justify-content-center">
@@ -91,6 +106,15 @@ const SignIn = () => {
               <Form.Label className="text-center mt-3 ms-5  ">
                 Don't have an account <Link to="/">Register</Link>
               </Form.Label>
+            </div>
+            <div className="btn_container">
+              <OverlayTrigger
+                trigger="click"
+                placement="left"
+                overlay={popover}
+              >
+                <Button variant="success">View Test Credentials</Button>
+              </OverlayTrigger>
             </div>
           </Card.Body>
         </Card>
