@@ -111,14 +111,20 @@ const NavBar = () => {
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
+            <Link to="/signIn">
+              <Button variant="outline-success" className="me-3">
+                Test Login
+              </Button>{" "}
+            </Link>
+
             <Navbar.Text>
               {/* --------------------------Login Button---------- */}
               <Button
                 variant="primary"
                 onClick={handleShow}
-                className="px-5 py-2"
+                className="px-4 py-2"
               >
-                Register
+                New Account ?
               </Button>
 
               <Modal show={show} onHide={handleClose} className="mx-4">
